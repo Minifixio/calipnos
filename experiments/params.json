@@ -1,0 +1,28 @@
+{
+    "skin_type": {
+        "thinness": "medium_thick",
+        "opacity": "light"
+    },
+    "person": {
+        "age": 65,
+        "gender": "male"
+    },
+    "measure": {
+        "period_days": 1,
+        "measurement_frequency": "medium"
+    },
+    "triggering": {
+        "min_time_before_measurement_sec": 60,
+        "min_absence_time_before_stopping_measurement_min": 1
+    },
+    "measure_frequencies": {
+        "o2_frequency_sec": 1,
+        "heart_rate_frequency_sec": 1,
+        "movement_acceleration_frequency_sec": 1,
+        "sound_level_frequency_sec": 1
+    },
+    "sensibility": {
+        "movement_acceleration": "medium",
+        "sound_level": "medium"
+    }
+}
