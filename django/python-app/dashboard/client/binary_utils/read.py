@@ -46,25 +46,26 @@ MXX_CONFIG = {
     'M15': ('audio_sp10', '>H', 2, 0),  # Unsigned short (2 bytes)
 }
 
-def read_binary_file(file_path):
-    with open(file_path, 'rb') as f:
-        data = f.read()
+def read_binary_file(data):
 
     file_size = len(data)
-    print(f"File size: {file_size} bytes")
+
+    ## DEBUG
+    # print(f"File size: {file_size} bytes")
 
     timestamp_start = struct.unpack_from('>I', data, 0x00)[0]
     timestamp_stop = struct.unpack_from('>I', data, 0x04)[0]
     version = struct.unpack_from('>H', data, 0x08)[0]
 
-    print(f"TIMESTAMP START: {timestamp_start}")
-    print(f"TIMESTAMP STOP: {timestamp_stop}")
-    print(f"VERSION: {version}")
+    ## DEBUG
+    # print(f"TIMESTAMP START: {timestamp_start}")
+    # print(f"TIMESTAMP STOP: {timestamp_stop}")
+    # print(f"VERSION: {version}")
 
     # Extraction des configurations PXX
     pta = {}
     offset = 0x0A
-    for _, (name, fmt, _, _) in PXX_CONFIG.items():
+    for key, (name, fmt, _, _) in PXX_CONFIG.items():
         size = struct.calcsize(fmt)
         value = struct.unpack_from(fmt, data, offset)[0]
         if type(value) == bytes:
@@ -72,16 +73,14 @@ def read_binary_file(file_path):
         pta[name] = value
         offset += size
 
-    print("PTA Map:")
-    print(pta)   
-
     # Lecture des mesures
     measures = []
     measure_size = sum([struct.calcsize(fmt) for _, (name, fmt, size, _) in MXX_CONFIG.items()])
     measures_start_offset = 0x50
 
-    print(f"Measure size: {measure_size} bytes")
-    print(f"Measures start offset: {measures_start_offset} bytes")
+    ## DEBUG
+    # print(f"Measure size: {measure_size} bytes")
+    # print(f"Measures start offset: {measures_start_offset} bytes")
 
     measures_count  = math.ceil((timestamp_stop - timestamp_start))
 
@@ -97,7 +96,8 @@ def read_binary_file(file_path):
             measure_offset += size
         measures.append(measure)
 
-    print("Number of measures read:", len(measures))
+    ## DEBUG
+    # print("Number of measures read:", len(measures))
     # print("Measures:")
     # for measure in measures:
     #     print(measure)
@@ -105,13 +105,15 @@ def read_binary_file(file_path):
     # Détection du footer (32 octets de FF)
     footer_offset = measure_offset + 32
 
-    print(f"Footer offset: {footer_offset} bytes")
+    ## DEBUG
+    # print(f"Footer offset: {footer_offset} bytes")
 
     json_data = data[footer_offset:].decode('latin-1')
-    config_json = json.loads(json_data)
+    config = json.loads(json_data)
 
-    print("Configuration JSON:")
-    print(json.dumps(config_json, indent=4))
+    ## DEBUG
+    # print("Configuration JSON:")
+    # print(json.dumps(config, indent=4))
 
     result = {
         'timestamp_start': timestamp_start,
@@ -119,14 +121,7 @@ def read_binary_file(file_path):
         'version': version,
         'pta': pta,
         'measures': measures,
-        'config_json': config_json,
+        'config': config,
     }
 
     return result
-
-file_path = 'measures-template.bin' # Le fichier binaire à lire
-result = read_binary_file(file_path)
-
-# Le fichier JSON extrait est sauvegardé dans le fichier `measures-template-extracted.json`
-with open("measures-template-extracted.json", "w") as outfile: 
-    outfile.write(json.dumps(result, indent=4))

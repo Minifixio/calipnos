@@ -1,0 +1,169 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "Schéma JSON pour les paramètres de configuration",
+    "properties": {
+        "skin_type": {
+            "type": "object",
+            "properties": {
+                "thinness": {
+                    "type": "string",
+                    "enum": [
+                        "very_thin",
+                        "medium_thick",
+                        "thick",
+                        "damaged"
+                    ],
+                    "default": "medium_thick"
+                },
+                "opacity": {
+                    "type": "string",
+                    "enum": [
+                        "black",
+                        "brown",
+                        "light",
+                        "very_light"
+                    ],
+                    "default": "light"
+                }
+            }
+        },
+        "person": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "enum": [
+                        19,
+                        35,
+                        49,
+                        65,
+                        200
+                    ],
+                    "default": 65
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "male",
+                        "female"
+                    ],
+                    "default": "male"
+                }
+            }
+        },
+        "measure": {
+            "type": "object",
+            "properties": {
+                "period_days": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        5
+                    ],
+                    "default": 1
+                },
+                "measurement_frequency": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ],
+                    "default": "medium"
+                }
+            }
+        },
+        "triggering": {
+            "type": "object",
+            "properties": {
+                "min_time_before_measurement_sec": {
+                    "type": "integer",
+                    "enum": [
+                        30,
+                        60,
+                        120
+                    ],
+                    "default": 60
+                },
+                "min_absence_time_before_stopping_measurement_min": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2
+                    ],
+                    "default": 1
+                }
+            }
+        },
+        "measure_frequencies": {
+            "type": "object",
+            "properties": {
+                "o2_frequency_sec": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        5,
+                        10
+                    ],
+                    "default": 1
+                },
+                "heart_rate_frequency_sec": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        5,
+                        10
+                    ],
+                    "default": 1
+                },
+                "movement_acceleration_frequency_sec": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        5,
+                        10
+                    ],
+                    "default": 1
+                },
+                "sound_level_frequency_sec": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        5,
+                        10
+                    ],
+                    "default": 1
+                }
+            }
+        },
+        "sensibility": {
+            "type": "object",
+            "properties": {
+                "movement_acceleration": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ],
+                    "default": "medium"
+                },
+                "sound_level": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ],
+                    "default": "medium"
+                }
+            }
+        }
+    }
+}

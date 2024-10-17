@@ -31,7 +31,11 @@
             {{ error|escape }}
           </p>
           {% endfor %} {% endif %} {% endfor %}
-          <button type="submit" class="btn btn-primary mt-2">S'enregistrer</button>
+          <div class="d-flex flex-row justify-content-between align-items-baseline">
+            <button type="submit" class="btn btn-primary mt-2">S'enregistrer</button>
+            <p><a class="link-opacity-100" href="/login">Retour</a></p>
+          </div>
+
         </form>
       </div>
     </div>

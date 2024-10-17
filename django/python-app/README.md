@@ -15,7 +15,7 @@ $ python -m venv myvenv
 $ source myvenv/bin/activate 
 ```
 
-Ensuite il suffit de se rendre dans le répertoire /dashboard et de faire : 
+Ensuite il suffit de se rendre dans le répertoire `/dashboard` et de faire : 
 ```bash
 $ python manage.py runserver
 ```

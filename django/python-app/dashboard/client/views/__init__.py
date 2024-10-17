@@ -1,4 +1,2 @@
-from .results_view import *
-from .auth_view import *
-from .homepage_view import *
-from .usb_selection_view import *
+from .measures_view import *
+from .config_view import *
