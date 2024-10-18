@@ -47,6 +47,18 @@ class DoctorConfiguration(models.Model):
 class DeviceConfigurationParameterName(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
+    # Range est un objet du type :
+    # {
+    #     "type": "int" | "selection"
+    #     "min": min_val | null,
+    #     "max": max_val | null,
+    #     "values": ["value1", "value2", "value3", ...] | null
+    # }
+    # Si le type est "int", min et max sont obligatoires, values est null
+    # Si le type est "selection", values est obligatoire, min et max sont null
+    range = models.JSONField()
+    quantum = models.FloatField()
+    default_value = models.FloatField()
 
 class DeviceConfigurationParameterValue(models.Model):
     id = models.AutoField(primary_key=True)
@@ -59,8 +71,8 @@ class DeviceConfiguration(models.Model):
     value = models.ForeignKey(DeviceConfigurationParameterValue, on_delete=models.CASCADE)
 
 class ConfigurationPairings(models.Model):
-    config_id = models.IntegerField()
-    doctor_config = models.ForeignKey(DoctorConfiguration, on_delete=models.CASCADE)
-    device_config = models.ForeignKey(DeviceConfiguration, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    doctor_config_id = models.IntegerField()
+    device_config_id = models.IntegerField()
 
 

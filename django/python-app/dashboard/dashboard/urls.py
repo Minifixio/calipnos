@@ -40,5 +40,8 @@ urlpatterns = [
     path('client/download-measure/<int:measure_id>/', client_views.download_measure, name='download_measure'),
 
     path('client/config/', client_views.config, name='config'),
-    path('client/config/get-configurations/', client_views.get_configurations, name='get_configurations'),
+    path('client/pta/', client_views.pta, name='pta'),
+    path('client/pta/add-configuration-rule/', client_views.add_configuration_rule, name='add_configuration_rule'),
+    path('client/pta/download-device-configuration/', client_views.download_device_configuration, name='download_device_configuration'),
+    path('client/pta/get-configuration-pairings/', client_views.get_configuration_pairings, name='get_configuration_pairings'),
 ]
