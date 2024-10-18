@@ -12,7 +12,7 @@ def register(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username = username, password = password)
             login(request, user)
-            return redirect('results')
+            return redirect('plotter/results')
     else:
         form = UserCreationForm()
     

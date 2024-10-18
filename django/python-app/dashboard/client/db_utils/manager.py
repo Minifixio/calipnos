@@ -1,6 +1,7 @@
 from ..binary_utils import read as binary_read
-from client.models import DeviceMeasure, DeviceMeasurePoint
+from client.models import DeviceMeasure, DeviceMeasurePoint, DoctorConfigurationParameterName, DoctorConfigurationParameterValue
 from django.http import JsonResponse
+from collections import defaultdict
 import datetime
 import pytz
 
@@ -128,3 +129,22 @@ def get_measure_points(measure_id):
     except DeviceMeasurePoint.DoesNotExist:
         print("Trying to get points for a non-existing measure")
         return None
+    
+def get_configurations():
+        # Récupére les noms des paramètres depuis DoctorConfigurationParameterName
+        # Pour chaque paramètre param_n, on récupére les valeurs des paramètres 
+        # depuis DoctorConfigurationParameterValue pour lesquels param=param_n
+
+        params_with_values = defaultdict(list)
+
+        # Récupérer tous les paramètres
+        parameters = DoctorConfigurationParameterName.objects.all()
+
+        for param in parameters:
+            # Récupérer les valeurs distinctes pour chaque paramètre
+            values = DoctorConfigurationParameterValue.objects.filter(param=param).values_list('value', flat=True).distinct()
+
+            # Ajouter au dictionnaire
+            params_with_values[param.name] = list(values)
+        
+        return dict(params_with_values)

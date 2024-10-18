@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    {% load static %}
+    <link rel="icon" href="{% static 'logo.svg' %}">
+
+    <script src="https://cdn.plot.ly/plotly-1.8.0.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <title>Calipnos</title>
+
+    <style>
+      .results {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .graph-container {
+        height: 100%;
+      }
+      .container {
+        margin: 0!important;
+      }
+      .file-input-container {
+        position: relative;
+      } 
+      #input-button {
+        cursor: pointer !important;;
+      }
+      .file-input {
+        position: absolute;
+        top: 0; left: 0;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        cursor:pointer;
+      }
+      .file-return {
+        font-size: small;
+        padding: 5px;
+        width: 100%;
+      }
+      .file-return:not(:empty):before {
+        content: "Fichier sélectionné: ";
+        font-style: normal;
+        font-weight: normal;
+      }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="mx-5 mt-5">
+            <form method="POST" action="/save-config/">
+                {% csrf_token %}
+                
+                {% for param_name, values in params_with_values.items %}
+                <div class="mb-3">
+                    <label for="param_{{ forloop.counter }}" class="form-label">{{ param_name }}</label>
+                    <select class="form-select" id="param_{{ forloop.counter }}" name="{{ param_name }}">
+                        <option selected disabled>Choisir une valuer pour {{ param_name }}</option>
+                        {% for value in values %}
+                        <option value="{{ value }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+                
+                <button type="submit" class="btn btn-primary">Générer le fichier de configuration</button>
+            </form>
+        </div>
+    </div>
+
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+  integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+  crossorigin="anonymous"
+></script>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM chargé');
+
+    });
+</script>
+</body>
+</html>
