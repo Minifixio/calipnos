@@ -39,6 +39,7 @@ urlpatterns = [
     path('client/delete-measure/<int:measure_id>/', client_views.delete_measure, name='delete_measure'),
     path('client/download-measure/<int:measure_id>/', client_views.download_measure, name='download_measure'),
 
+    path('client/', client_views.measures, name='client'),
     path('client/config/', client_views.config, name='config'),
     path('client/pta/', client_views.pta, name='pta'),
     path('client/pta/add-configuration-rule/', client_views.add_configuration_rule, name='add_configuration_rule'),
